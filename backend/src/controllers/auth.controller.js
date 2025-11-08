@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const Members = require("../models/Members");
+const Intentions = require("../models/Intentions");
+const Invitations = require("../models/Invitations");
 
 const { Op } = require("sequelize");
 
