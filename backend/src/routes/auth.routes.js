@@ -10,7 +10,7 @@ const router = express.Router();
 router.post("/login", login);
 router.post("/intentions", insertIntentions);
 
-router.post("/listintentions", authMiddleware, listIntentions);
+router.get("/listintentions/:id?", authMiddleware, listIntentions);
 // router.post("/cadastratarefas", authMiddleware, cadastraTarefas);
 // router.post("/finalizartarefas", authMiddleware, finalizarTarefas);
 // router.post("/excluirtarefas", authMiddleware, excluirTarefas);
