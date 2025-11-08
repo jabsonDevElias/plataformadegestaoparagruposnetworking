@@ -2,33 +2,24 @@
 
 import { useForm } from "@/src/hooks/useForm";
 import { useModal } from "../../src/context/ModalContext";
-import { useEffect } from "react";
+import { useInsertIntention } from "@/src/hooks/intentions/useInsertIntentions";
 
 export default function Page() {
+  const { mutate, isPending, isSuccess, isError, error } = useInsertIntention();
+
   const formDefault = {
-    nomeCompleto: "",
-    empresa: "",
-    numeroTelefone: "",
+    name: "",
     email: "",
-    mensagem: "",
+    phone: "",
+    message: "",
   };
 
   const { form, handleChange } = useForm(formDefault);
-  const { openModal } = useModal();
+  
 
-  function enviarIntencao() {
-    setTimeout(() => {
-      
-      openModal({
-        title: "",
-        message: "Tem certeza que deseja apagar?",
-        onConfirm: () => {
-          console.log("Deletado!");
-        },
-      });
-    }, 5000);
+  function sendIntention() {
+    mutate(form);
   }
-
 
   return (
     <div className="isolate bg-gray-900 px-6 py-24 sm:py-32 lg:px-8">
@@ -52,11 +43,7 @@ export default function Page() {
           Um e-mail com o convite será enviado ao endereço informado.
         </p>
       </div>
-      <form
-        action="#"
-        method="POST"
-        className="mx-auto mt-16 max-w-xl sm:mt-20"
-      >
+      <form onSubmit={sendIntention} className="mx-auto mt-16 max-w-xl sm:mt-20">
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div className="sm:col-span-2">
             <label
@@ -67,8 +54,8 @@ export default function Page() {
             </label>
             <div className="mt-2.5">
               <input
-                id="nomeCompleto"
-                name="nomeCompleto"
+                id="name"
+                name="name"
                 type="text"
                 onChange={handleChange}
                 autoComplete="given-name"
@@ -85,8 +72,8 @@ export default function Page() {
             </label>
             <div className="mt-2.5">
               <input
-                id="empresa"
-                name="empresa"
+                id="company"
+                name="company"
                 onChange={handleChange}
                 type="text"
                 autoComplete="organization"
@@ -104,8 +91,8 @@ export default function Page() {
             <div className="mt-2.5">
               <div className="flex rounded-md bg-white/5 outline-1 -outline-offset-1 outline-white/10 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-500">
                 <input
-                  id="numeroTelefone"
-                  name="numeroTelefone"
+                  id="phone"
+                  name="phone"
                   type="text"
                   placeholder="(00) 00000.0000"
                   onChange={handleChange}
@@ -141,8 +128,8 @@ export default function Page() {
             </label>
             <div className="mt-2.5">
               <textarea
-                id="mensagem"
-                name="mensagem"
+                id="message"
+                name="message"
                 onChange={handleChange}
                 rows={4}
                 className="block w-full rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500"

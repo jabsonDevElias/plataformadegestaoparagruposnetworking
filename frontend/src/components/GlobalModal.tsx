@@ -20,7 +20,7 @@ interface Props {
 export function GlobalModal({
   open,
   closeModal,
-  title = "Confirmação",
+  title = "Mensagem",
   message = "",
   type = "confirmacao",
   onConfirm,
