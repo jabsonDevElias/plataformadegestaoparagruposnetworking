@@ -31,11 +31,15 @@ export function GlobalModal({
   let titleBtn = "";
 
   switch (type) {
-
     case "confirmacao":
-        colorBtn = "bg-lime-500";
-        cancelatBtn = false;
-        titleBtn = "Ok";
+      colorBtn = "bg-lime-500";
+      cancelatBtn = false;
+      titleBtn = "Ok";
+      break;
+    case "error":
+      colorBtn = "bg-red-500";
+      cancelatBtn = false;
+      titleBtn = "Ok";
       break;
 
     default:
@@ -65,7 +69,7 @@ export function GlobalModal({
           <div className="mt-4 flex justify-end gap-2">
             <button
               onClick={handleCancel}
-              style={{display:(cancelatBtn)?"block":"none"}}
+              style={{ display: cancelatBtn ? "block" : "none" }}
               className="px-3 py-1 bg-gray-600 rounded hover:bg-gray-500 cursor-pointer"
             >
               Cancelar
@@ -74,7 +78,7 @@ export function GlobalModal({
               onClick={handleConfirm}
               className={`px-3 py-1 ${colorBtn} rounded hover:${colorBtn} cursor-pointer`}
             >
-              Confirmar
+              ok
             </button>
           </div>
         </DialogPanel>

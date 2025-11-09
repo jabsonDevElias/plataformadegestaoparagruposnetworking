@@ -1,10 +1,10 @@
 "use client";
 
 import { useForm } from "@/src/hooks/useForm";
-import { useModal } from "../../src/context/ModalContext";
 import { useInsertIntention } from "@/src/hooks/intentions/useInsertIntentions";
 
 export default function Page() {
+  
   const { mutate, isPending, isSuccess, isError, error } = useInsertIntention();
 
   const formDefault = {
@@ -14,11 +14,15 @@ export default function Page() {
     message: "",
   };
 
-  const { form, handleChange } = useForm(formDefault);
-  
+  const { form, handleChange, setForm } = useForm(formDefault);
 
-  function sendIntention() {
-    mutate(form);
+  function sendIntention(e: any) {
+    e.preventDefault();
+    mutate(form, {
+      onSuccess: () => {
+        setForm(formDefault);
+      },
+    });
   }
 
   return (
@@ -43,7 +47,11 @@ export default function Page() {
           Um e-mail com o convite será enviado ao endereço informado.
         </p>
       </div>
-      <form onSubmit={sendIntention} className="mx-auto mt-16 max-w-xl sm:mt-20">
+      <form
+        onSubmit={sendIntention}
+        className="mx-auto mt-16 max-w-xl sm:mt-20"
+        method="post"
+      >
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div className="sm:col-span-2">
             <label
@@ -57,6 +65,7 @@ export default function Page() {
                 id="name"
                 name="name"
                 type="text"
+                value={form.name}
                 onChange={handleChange}
                 autoComplete="given-name"
                 className="block w-full rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500"
@@ -93,6 +102,7 @@ export default function Page() {
                 <input
                   id="phone"
                   name="phone"
+                  value={form.phone}
                   type="text"
                   placeholder="(00) 00000.0000"
                   onChange={handleChange}
@@ -113,6 +123,7 @@ export default function Page() {
                 id="email"
                 name="email"
                 type="email"
+                value={form.email}
                 onChange={handleChange}
                 autoComplete="email"
                 className="block w-full rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500"
@@ -124,16 +135,16 @@ export default function Page() {
               htmlFor="message"
               className="block text-sm/6 font-semibold text-white"
             >
-              Menssagem
+              Por que você que parcipar?
             </label>
             <div className="mt-2.5">
               <textarea
                 id="message"
                 name="message"
+                value={form.message}
                 onChange={handleChange}
                 rows={4}
                 className="block w-full rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500"
-                defaultValue={""}
               />
             </div>
           </div>
@@ -141,6 +152,7 @@ export default function Page() {
         <div className="mt-10">
           <button
             type="submit"
+            disabled={isPending}
             className="block w-full rounded-md bg-indigo-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
           >
             Enviar

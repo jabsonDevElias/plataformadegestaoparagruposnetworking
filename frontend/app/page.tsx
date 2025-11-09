@@ -25,7 +25,7 @@ export default function Page() {
             </a>
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" className="text-sm/6 font-semibold text-white">
+            <a href="/login" className="text-sm/6 font-semibold text-white">
               Log in <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
@@ -75,7 +75,7 @@ export default function Page() {
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
-                href="/intent"
+                href="/intention"
                 className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
                 Seja Membro
