@@ -1,32 +1,32 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { signIn } from "@/src/services/login.service";
 import { useModal } from "@/src/context/ModalContext";
+import { useRouter } from "next/navigation";
 
 export function useSignIn() {
-  
-  const queryClient = useQueryClient();
   const { openModal } = useModal();
+  const router = useRouter();
 
   return useMutation({
     mutationFn: signIn,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["login"] });
+    onSuccess: async (data) => {
+
+
+      localStorage.setItem("authToken", data.token);
+
       openModal({
         title: "",
         message: "Login realizado com sucesso!",
-        onConfirm: () => {
-          console.log("ok!");
-        },
       });
+
+      router.push("/dashboard");
     },
-    onError: (e) => {
+    onError: () => {
       openModal({
         title: "",
-        message: "Erro ao Tentar o Login",
-        onConfirm: () => {
-          console.log("ok!");
-        },
+        message: "Erro ao tentar o login",
       });
     },
   });
 }
+
