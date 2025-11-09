@@ -21,7 +21,6 @@ const insertIntentions = async (req, res) => {
 
 const listIntentions = async (req, res) => {
   try {
-    
     const { id } = req.params;
 
     if (id) {
@@ -35,7 +34,7 @@ const listIntentions = async (req, res) => {
     }
 
     const intentions = await Intentions.findAll({
-      where: { status: "true" }
+      where: { status: "true" },
     });
 
     return res.json(intentions);
@@ -45,5 +44,25 @@ const listIntentions = async (req, res) => {
   }
 };
 
+// DELETAR INTENÇÃO
 
-module.exports = { insertIntentions, listIntentions };
+const deleteIntentions = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const [updatedRows] = await Intentions.update(
+      { status: false },
+      { where: { id: id } }
+    );
+
+    if (updatedRows) {
+      res.json({ message: `Intenção ${id} desativada` });
+    } else {
+      res.json({ message: `Intenção ${id} não encontrado.` });
+    }
+  } catch (err) {
+    console.error("Erro ao atualizar status:", err);
+  }
+};
+
+module.exports = { insertIntentions, listIntentions, deleteIntentions };

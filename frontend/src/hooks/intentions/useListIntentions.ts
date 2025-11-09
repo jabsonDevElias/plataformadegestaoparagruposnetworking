@@ -5,7 +5,7 @@ import { listIntentions } from "../../services/intentions.service";
 
 export function useIntentios() {
   return useQuery({
-    queryKey: ["listintentions"],
+    queryKey: ["intentions"],
     queryFn: listIntentions
   });
 }

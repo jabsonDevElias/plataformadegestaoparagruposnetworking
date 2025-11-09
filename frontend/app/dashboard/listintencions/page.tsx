@@ -1,7 +1,8 @@
 "use client";
 
+import { useDeleteIntention } from "@/src/hooks/intentions/useDeleteIntentions";
 import { useIntentios } from "@/src/hooks/intentions/useListIntentions";
-import { EnvelopeIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { EnvelopeIcon, TrashIcon } from "@heroicons/react/24/outline";
 
 type Intention = {
   id: number;
@@ -14,18 +15,21 @@ type Intention = {
 
 export default function Page() {
   const { data, isLoading, error } = useIntentios();
+  const { mutate, isPending, isSuccess, isError } = useDeleteIntention();
 
   if (isLoading) {
     return <div className="p-4 text-gray-300">Carregando...</div>;
   }
 
   if (error) {
-    return <div className="p-4 text-red-400">Erro ao carregar dados.</div>;
+    return <div className="p-4 text-red-400">Failha ao carregar dados.</div>;
   }
 
-  console.log(data);
-
   const rows = data ?? [];
+
+  function deleteIntention(id: number) {
+    mutate(id);
+  }
 
   return (
     <div className="p-4">
@@ -52,19 +56,19 @@ export default function Page() {
 
           <tbody className="divide-y divide-gray-700 bg-gray-900">
             {rows.length > 0 ? (
-              rows.map((person: Intention) => (
-                <tr key={person.id}>
+              rows.map((intention: Intention) => (
+                <tr key={intention.id}>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-300">
-                    {person.name}
+                    {intention.name}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-300">
-                    {person.email}
+                    {intention.email}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-300">
-                    {person.phone}
+                    {intention.phone}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-300">
-                    {person.message}
+                    {intention.message}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-300">
                     <button className="flex items-center gap-2 bg-lime-600 hover:bg-lime-700 text-white px-4 py-2 rounded-md">
@@ -72,7 +76,10 @@ export default function Page() {
                     </button>
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-300">
-                    <button className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md">
+                    <button
+                      onClick={() => deleteIntention(intention.id)}
+                      className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md cursor-pointer"
+                    >
                       <TrashIcon className="h-5 w-5" />
                     </button>
                   </td>

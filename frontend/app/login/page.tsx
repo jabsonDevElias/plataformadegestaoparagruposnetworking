@@ -7,7 +7,6 @@ import { useEffect } from "react";
 import { useAuth } from "@/src/hooks/useAuth";
 
 export default function Page() {
-  
   const router = useRouter();
 
   const { isAuthenticated, isLoading } = useAuth();
@@ -19,7 +18,7 @@ export default function Page() {
   };
 
   const { form, handleChange, setForm } = useForm(formDefault);
-
+  
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
       router.replace("/dashboard");
