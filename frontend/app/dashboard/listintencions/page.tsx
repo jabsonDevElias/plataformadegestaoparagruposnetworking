@@ -2,6 +2,7 @@
 
 import { useDeleteIntention } from "@/src/hooks/intentions/useDeleteIntentions";
 import { useIntentios } from "@/src/hooks/intentions/useListIntentions";
+import { useInsertInvitation } from "@/src/hooks/invitations/useInsertInvitation";
 import { EnvelopeIcon, TrashIcon } from "@heroicons/react/24/outline";
 
 type Intention = {
@@ -16,6 +17,7 @@ type Intention = {
 export default function Page() {
   const { data, isLoading, error } = useIntentios();
   const { mutate, isPending, isSuccess, isError } = useDeleteIntention();
+  const { mutate: getInvitationMutate } = useInsertInvitation();
 
   if (isLoading) {
     return <div className="p-4 text-gray-300">Carregando...</div>;
@@ -32,7 +34,7 @@ export default function Page() {
   }
 
   function sendInvitations(id: number) {
-    mutate(id);
+    getInvitationMutate(id);
   }
 
   return (

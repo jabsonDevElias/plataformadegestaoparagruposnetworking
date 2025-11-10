@@ -27,10 +27,10 @@ const insertInvitation = async (req, res) => {
       intention_id: intention.id,
       token: passwordHash,
       expires_at: date_expires,
-      used: true,
+      used: false,
     });
 
-    res.json({ message: "Convite registrado com Sucesso!" });
+    res.json({ token_invitation: token });
   } catch (error) {
     return res
       .status(500)

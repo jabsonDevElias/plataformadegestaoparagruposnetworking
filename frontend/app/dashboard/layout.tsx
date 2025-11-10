@@ -162,7 +162,7 @@ export default function DashboardLayout({
             <h1 className="text-3xl font-bold tracking-tight text-white">
               Seja Bem-Vindo
             </h1>
-            <h3>Jabson Elias</h3>
+            <h3></h3>
           </div>
         </header>
         <main>

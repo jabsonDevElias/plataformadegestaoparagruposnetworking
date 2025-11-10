@@ -64,7 +64,7 @@ export function GlobalModal({
             {title}
           </DialogTitle>
 
-          <p className="text-gray-300">{message}</p>
+          <p className="text-gray-300 break-words">{message}</p>
 
           <div className="mt-4 flex justify-end gap-2">
             <button
