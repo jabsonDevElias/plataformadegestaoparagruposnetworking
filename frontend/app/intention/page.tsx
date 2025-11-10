@@ -55,7 +55,7 @@ export default function Page() {
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div className="sm:col-span-2">
             <label
-              htmlFor="first-name"
+              htmlFor="name"
               className="block text-sm/6 font-semibold text-white"
             >
               Nome Completo
@@ -92,7 +92,7 @@ export default function Page() {
           </div>
           <div className="sm:col-span-2">
             <label
-              htmlFor="phone-number"
+              htmlFor="phone"
               className="block text-sm/6 font-semibold text-white"
             >
               Numero de Telefone

@@ -50,7 +50,7 @@ export default function Page() {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form onSubmit={sendLogin} method="POST" className="space-y-6">
+        <form onSubmit={sendLogin} method="POST" className="space-y-6" data-testid="login-form">
           <div>
             <label
               htmlFor="email"
