@@ -9,7 +9,3 @@ export async function signIn(payload: { email: string; password: string }) {
   return data;
 }
 
-export async function signOut(payload: { email: string; password: string }) {
-  const { data } = await api.post("/api/login", payload);
-  return data;
-}

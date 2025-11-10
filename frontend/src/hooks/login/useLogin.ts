@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { signIn } from "@/src/services/login.service";
+import { signIn} from "@/src/services/login.service";
 import { useModal } from "@/src/context/ModalContext";
 import { useRouter } from "next/navigation";
 
@@ -10,8 +10,6 @@ export function useSignIn() {
   return useMutation({
     mutationFn: signIn,
     onSuccess: async (data) => {
-
-
       localStorage.setItem("authToken", data.token);
 
       openModal({
