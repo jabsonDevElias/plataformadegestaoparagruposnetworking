@@ -1,5 +1,4 @@
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 //MODELS
@@ -20,10 +19,13 @@ const insertIntentions = async (req, res) => {
 // LISTAGEM DE INTENÇÃO
 
 const listIntentions = async (req, res) => {
+
   try {
+
     const { id } = req.params;
 
     if (id) {
+
       const intention = await Intentions.findByPk(id);
 
       if (!intention) {

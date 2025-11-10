@@ -31,6 +31,10 @@ export default function Page() {
     mutate(id);
   }
 
+  function sendInvitations(id: number) {
+    mutate(id);
+  }
+
   return (
     <div className="p-4">
       <div className="overflow-x-auto rounded-lg border border-gray-700">
@@ -71,7 +75,10 @@ export default function Page() {
                     {intention.message}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-300">
-                    <button className="flex items-center gap-2 bg-lime-600 hover:bg-lime-700 text-white px-4 py-2 rounded-md">
+                    <button
+                      onClick={() => sendInvitations(intention.id)}
+                      className="flex items-center gap-2 bg-lime-600 hover:bg-lime-700 text-white px-4 py-2 rounded-md"
+                    >
                       <EnvelopeIcon className="h-5 w-5" />
                     </button>
                   </td>
